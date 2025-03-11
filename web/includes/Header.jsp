@@ -53,8 +53,8 @@
                 </div>
 
                 <div class="header-login d-flex">
-                    <a href="#" class="btn-custom me-2">Login</a>
-                    <a href="#" class="btn-custom me-2">Register</a>
+                    <a href="Login.jsp" class="btn-custom me-2">Login</a>
+                    <a href="Register.jsp" class="btn-custom me-2">Register</a>
                     <a href="#" class="btn-custom btn-primary-custom">Booking now</a>
                 </div>
 

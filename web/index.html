@@ -53,8 +53,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 </div>
 
                 <div class="header-login d-flex">
-                    <a href="#" class="btn-custom me-2">Login</a>
-                    <a href="#" class="btn-custom me-2">Register</a>
+                    <a href="Login.jsp" class="btn-custom me-2">Login</a>
+                    <a href="Register.jsp" class="btn-custom me-2">Register</a>
                     <a href="#" class="btn-custom btn-primary-custom">Booking now</a>
                 </div>
 
@@ -253,16 +253,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <button id="prevBtn" class="control-btn">←</button>
 
                 <div class="review-image">
-                    <img src="images/reviewsguests.png" alt="TripAdvisor Award">
+                    <img src="<%=request.getContextPath()%>/images/reviewsguests.png" alt="TripAdvisor Award">
                 </div>
 
                 <div class="review-content">
                     <h3 id="hotelName">QuangDa Hotel & Suites</h3>
-
                     <div class="dots"></div>
-
                     <div id="reviewText" class="review-text"></div>
-
                     <div class="review-author" id="reviewAuthor"></div>
                     <div class="review-date" id="reviewDate"></div>
                 </div>
@@ -272,65 +269,69 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         </div>
 
         <script>
-            const reviews = [
-                {
-                    text: "Wonderful hotel. QuangDa Hotel & Suites was facing the sea, superb views. It was spacious and exquisitely designed. Staff is friendly and willing to help. Will definitely come back!",
-                    author: "MR. IGNACIO MANJON",
-                    date: "Jan 2023"
-                },
-                {
-                    text: "A truly luxurious experience. The rooms are beautifully designed and the views are breathtaking. The food was delicious and the service impeccable!",
-                    author: "MRS. SARAH LEE",
-                    date: "Feb 2023"
-                },
-                {
-                    text: "Exceptional service and facilities. Highly recommended for anyone looking to relax and enjoy a high-end vacation experience.",
-                    author: "MR. JAMES NGUYEN",
-                    date: "Mar 2023"
-                },
-                {
-                    text: "Beautiful hotel with amazing views. The pool was incredible and the rooms were spacious and luxurious. Will definitely visit again!",
-                    author: "MRS. EMMA WILLIAMS",
-                    date: "Apr 2023"
+            document.addEventListener('DOMContentLoaded', function () {
+                const reviews = [
+                    {
+                        text: "Wonderful hotel. QuangDa Hotel & Suites was facing the sea, superb views. It was spacious and exquisitely designed. Staff is friendly and willing to help. Will definitely come back!",
+                        author: "MR. IGNACIO MANJON",
+                        date: "Jan 2023"
+                    },
+                    {
+                        text: "A truly luxurious experience. The rooms are beautifully designed and the views are breathtaking. The food was delicious and the service impeccable!",
+                        author: "MRS. SARAH LEE",
+                        date: "Feb 2023"
+                    },
+                    {
+                        text: "Exceptional service and facilities. Highly recommended for anyone looking to relax and enjoy a high-end vacation experience.",
+                        author: "MR. JAMES NGUYEN",
+                        date: "Mar 2023"
+                    },
+                    {
+                        text: "Beautiful hotel with amazing views. The pool was incredible and the rooms were spacious and luxurious. Will definitely visit again!",
+                        author: "MRS. EMMA WILLIAMS",
+                        date: "Apr 2023"
+                    }
+                ];
+
+                let currentIndex = 0;
+
+                const reviewText = document.getElementById('reviewText');
+                const reviewAuthor = document.getElementById('reviewAuthor');
+                const reviewDate = document.getElementById('reviewDate');
+                const dotsContainer = document.querySelector('.dots');
+
+                function updateReview() {
+                    const currentReview = reviews[currentIndex];
+                    reviewText.innerHTML = currentReview.text;
+                    reviewAuthor.innerHTML = currentReview.author;
+                    reviewDate.innerHTML = currentReview.date;
+
+                    let dotsHTML = "";
+                    reviews.forEach((_, index) => {
+                        dotsHTML += '<span class="dot ' + (index === currentIndex ? 'active-dot' : '') + '" data-index="' + index + '"></span>';
+                    });
+                    dotsContainer.innerHTML = dotsHTML;
                 }
-            ];
 
-            let currentIndex = 0;
-
-            const reviewText = document.getElementById('reviewText');
-            const reviewAuthor = document.getElementById('reviewAuthor');
-            const reviewDate = document.getElementById('reviewDate');
-            const dotsContainer = document.querySelector('.dots');
-
-            function updateReview() {
-                const {text, author, date} = reviews[currentIndex];
-                reviewText.innerHTML = text;
-                reviewAuthor.innerHTML = author;
-                reviewDate.innerHTML = date;
-
-                dotsContainer.innerHTML = reviews.map((_, index) =>
-                        `<span class="dot ${index === currentIndex ? 'active-dot' : ''}" data-index="${index}"></span>`
-                ).join("");
-            }
-
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                currentIndex = (currentIndex + 1) % reviews.length;
-                updateReview();
-            });
-
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
-                updateReview();
-            });
-
-            dotsContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('dot')) {
-                    currentIndex = parseInt(e.target.getAttribute('data-index'));
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % reviews.length;
                     updateReview();
-                }
-            });
+                });
 
-            updateReview();
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+                    updateReview();
+                });
+
+                dotsContainer.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('dot')) {
+                        currentIndex = parseInt(e.target.getAttribute('data-index'));
+                        updateReview();
+                    }
+                });
+
+                updateReview();
+            });
         </script>
 
 
@@ -339,7 +340,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <footer>
             <div class="footer-container">
                 <div class="footer-column">
-                   <img src="images/QuangDaLogo.jpg" alt="QuangDa Logo">
+                    <img src="images/QuangDaLogo.jpg" alt="QuangDa Logo">
                 </div>
                 <div class="footer-column">
                     <h3>Contact Us</h3>
